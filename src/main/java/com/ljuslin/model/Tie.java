@@ -1,11 +1,8 @@
-package com.ljuslin.rental;
+package com.ljuslin.model;
 
-import com.ljuslin.utils.Level;
-import com.ljuslin.utils.Material;
-import com.ljuslin.utils.Pattern;
-import com.ljuslin.utils.PricePolicy;
+import com.ljuslin.pricing.PricePolicy;
 
-public class Tie extends Item implements PricePolicy {
+public class Tie extends Item {
     private double length;
     private double width;
 
@@ -24,32 +21,7 @@ public class Tie extends Item implements PricePolicy {
         this.length = length;
         this.width = width;
     }
-    public double getPrice(Level level) {
-        switch (level) {
-            case STUDENT -> {
-                return this.getPricePerDay() * 0.1;
-            }
-            case PREMIUM -> {
-                return this.getPricePerDay() * 0.2;
-            }
-            default -> {
-                return this.getPricePerDay();
-            }
-        }
-    }
-    public double getPrice(Level level, int days) {
-        switch (level) {
-            case STUDENT -> {
-                return this.getPricePerDay() * days * 0.1;
-            }
-            case PREMIUM -> {
-                return this.getPricePerDay() * days * 0.2;
-            }
-            default -> {
-                return this.getPricePerDay() * days;
-            }
-        }
-    }
+
     @Override
     public String toString() {
         String s = getPattern().toString().toLowerCase();
@@ -62,7 +34,8 @@ public class Tie extends Item implements PricePolicy {
         s = s.concat(", length: ").concat(String.valueOf(length));
         s = s.concat(", width: ").concat(String.valueOf(width));
         s = s.concat(", rental price per day is ").concat(String.valueOf(getPricePerDay())).concat(
-                "SEK.");
+                " SEK");
+        s = s.concat(", ID: ").concat(getItemID());
         return s;
     }
 }

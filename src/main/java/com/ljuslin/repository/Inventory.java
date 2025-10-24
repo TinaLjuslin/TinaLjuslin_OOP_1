@@ -1,11 +1,10 @@
 package com.ljuslin.repository;
 
-import com.ljuslin.rental.Bowtie;
-import com.ljuslin.rental.Item;
-import com.ljuslin.rental.Member;
-import com.ljuslin.rental.Tie;
-import com.ljuslin.utils.Material;
-import com.ljuslin.utils.Pattern;
+import com.ljuslin.model.Bowtie;
+import com.ljuslin.model.Item;
+import com.ljuslin.model.Tie;
+import com.ljuslin.model.Material;
+import com.ljuslin.model.Pattern;
 
 import java.util.ArrayList;
 import java.util.List;

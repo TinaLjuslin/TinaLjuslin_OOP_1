@@ -1,11 +1,10 @@
 package com.ljuslin.repository;
 
-import com.ljuslin.rental.Member;
-import com.ljuslin.utils.Level;
+import com.ljuslin.model.Member;
+import com.ljuslin.model.Level;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class MemberRegistry {
     private List<Member> members = new ArrayList<>();
@@ -82,6 +81,12 @@ public class MemberRegistry {
         }
         return null;
     }
+
+    /**
+     * Removes a member
+     * @param memberID, id of member to remove
+     * @return the removed member or null if no member could be removed
+     */
     public Member removeMember(String memberID) {
         for (Member m : members) {
             if (m.getMemberID().equals(memberID)) {

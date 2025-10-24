@@ -1,15 +1,18 @@
 package com.ljuslin.service;
 
-import com.ljuslin.rental.Member;
+import com.ljuslin.model.Member;
+import com.ljuslin.model.Rental;
+import com.ljuslin.rental.RentalShop;
 import com.ljuslin.repository.MemberRegistry;
-import com.ljuslin.utils.Level;
+import com.ljuslin.model.Level;
+import com.ljuslin.repository.RentalRepository;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class MembershipService {
     private MemberRegistry memberRegistry;
-
+    private RentalRepository rentalRepo;
     /**
      * Empty constructor
      */
@@ -19,8 +22,9 @@ public class MembershipService {
      * Constructor
      * @param memberRegistry the registry holding members
      */
-    public MembershipService(MemberRegistry memberRegistry) {
+    public MembershipService(MemberRegistry memberRegistry, RentalRepository rentalRepo) {
         this.memberRegistry = memberRegistry;
+        this.rentalRepo = rentalRepo;
     }
 
     /**
@@ -71,9 +75,18 @@ public class MembershipService {
      * @param memberID id of member to get
      * @return member or null if no member was found
      */
-    public Member searchMember(String memberID) {
+    public Member getMember(String memberID) {
         return memberRegistry.getMember(memberID);
 
+    }
+    public List<Member> searchMembers(String searchString) {
+        List<Member> searchmembers = new ArrayList<>();
+        for (Member member : memberRegistry.getMembers()) {
+            if (member.toString().toLowerCase().contains(searchString.toLowerCase())) {
+                searchmembers.add(member);
+            }
+        }
+        return searchmembers;
     }
 
     /**
@@ -113,7 +126,15 @@ public class MembershipService {
      * @return string for the user
      */
     public String removeMember(String memberID) {
-        Member tempMember = memberRegistry.removeMember(memberID);
+        //kolla om membeern finns i uthyrda
+        Member tempMember = memberRegistry.getMember(memberID);
+        List<Rental> rentals = rentalRepo.getRentals();
+        for (Rental rental : rentals) {
+            if (rental.getMember().equals(tempMember) && rental.getReturnDate() == null) {
+                return"Member cannot be deleted, he or she has rentals";
+            }
+        }
+        tempMember = memberRegistry.removeMember(memberID);
         if (tempMember == null) {
             return "Member " + memberID + " could not be removed";
         }
