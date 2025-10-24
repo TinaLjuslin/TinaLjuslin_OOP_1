@@ -1,4 +1,4 @@
-package com.ljuslin.utils;
+package com.ljuslin.model;
 
 public enum Level {
     STANDARD,

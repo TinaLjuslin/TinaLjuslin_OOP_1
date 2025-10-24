@@ -1,6 +1,4 @@
-package com.ljuslin.rental;
-
-import com.ljuslin.utils.Level;
+package com.ljuslin.model;
 
 import java.util.ArrayList;
 import java.util.List;

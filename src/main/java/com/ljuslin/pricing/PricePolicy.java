@@ -1,4 +1,6 @@
-package com.ljuslin.utils;
+package com.ljuslin.pricing;
+
+import com.ljuslin.model.Level;
 
 /**
  * PricePolicy (interface) + konkreta strategier, ex. standard, student, premium
@@ -10,8 +12,8 @@ package com.ljuslin.utils;
  *
  */
 public interface PricePolicy {
-    public double getPrice(Level level);
-    public double getPrice(Level level, int days);
+    public double getPricePerDay(double price);
+    public double getTotalPrice(double price, int days);
 
 }
 

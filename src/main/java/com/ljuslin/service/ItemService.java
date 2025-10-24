@@ -1,12 +1,11 @@
 package com.ljuslin.service;
 
-import com.ljuslin.rental.Bowtie;
-import com.ljuslin.rental.Item;
-import com.ljuslin.rental.Tie;
+import com.ljuslin.model.Bowtie;
+import com.ljuslin.model.Item;
+import com.ljuslin.model.Tie;
 import com.ljuslin.repository.Inventory;
-import com.ljuslin.utils.Level;
-import com.ljuslin.utils.Material;
-import com.ljuslin.utils.Pattern;
+import com.ljuslin.model.Material;
+import com.ljuslin.model.Pattern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +16,17 @@ public class ItemService {
         this.inventory = inventory;
     }
 
-    public void newItem() {
-
+    public void newItem(Item item) {
+        inventory.addItem(item);
     }
-
+    public Item getItem(String itemID) {
+        for (Item item : inventory.getItems()) {
+            if (item.getItemID().equals(itemID)) {
+                return item;
+            }
+        }
+        return null;
+    }
     /**
      * Returns all items containing the string from user
      * @param search the string to search for
@@ -39,6 +45,11 @@ public class ItemService {
         }
         return searchtems;
     }
+
+    /**
+     * Returns all items
+     * @return
+     */
     public List<Item> getItems() {
         return inventory.getItems();
     }
@@ -83,8 +94,7 @@ public class ItemService {
      * @return
      */
     public String newTie(String pattern, String material, String brand,
-                         String color, String pricePerDay,
-                         String length, String width) {
+                         String color, String pricePerDay, String length, String width) {
 
         Pattern pPattern = getPattern(pattern);
         if (pPattern == null) {
@@ -123,8 +133,7 @@ public class ItemService {
      * @return
      */
     public String newBowtie(String pattern, String material, String brand,
-                            String color, String pricePerDay,
-                            String size, String pretied) {
+                            String color, String pricePerDay, String size, String pretied) {
 
         Pattern pPattern = getPattern(pattern);
         if (pPattern == null) {
@@ -199,5 +208,8 @@ public class ItemService {
         else if (string.equalsIgnoreCase("N"))
             return 0;
         else return -1;
+    }
+    public void removeItem(String itemID) {
+        inventory.removeItem(itemID);
     }
 }

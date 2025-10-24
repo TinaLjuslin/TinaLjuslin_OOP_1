@@ -1,11 +1,8 @@
-package com.ljuslin.rental;
+package com.ljuslin.model;
 
-import com.ljuslin.utils.Level;
-import com.ljuslin.utils.Material;
-import com.ljuslin.utils.Pattern;
-import com.ljuslin.utils.PricePolicy;
+import com.ljuslin.pricing.PricePolicy;
 
-public class Bowtie extends Item implements PricePolicy {
+public class Bowtie extends Item {
     private String size;
     private boolean preeTied = false;
     public Bowtie() {}
@@ -42,37 +39,6 @@ public class Bowtie extends Item implements PricePolicy {
     public boolean isPreeTied() {
         return preeTied;
     }
-    public double getPrice(Level level) {
-        switch (level) {
-            case STANDARD -> {
-                return this.getPricePerDay();
-            }
-            case STUDENT -> {
-                return this.getPricePerDay() * 0.1;
-            }
-            case PREMIUM -> {
-                return this.getPricePerDay() * 0.2;
-            }
-            default -> {
-                return this.getPricePerDay();
-            }
-        }
-    }
-    public double getPrice(Level level, int days) {
-        switch (level) {
-            case STANDARD -> {
-                return this.getPricePerDay() * days;}
-            case STUDENT -> {
-                return this.getPricePerDay() * days * 0.1;
-            }
-            case PREMIUM -> {
-                return this.getPricePerDay() * days * 0.2;
-            }
-            default -> {
-                return this.getPricePerDay() * days;
-            }
-        }
-    }
 
     @Override
     public String toString() {
@@ -89,7 +55,8 @@ public class Bowtie extends Item implements PricePolicy {
             s = s.concat(", not pre-tied");
         s = s.concat(", in size ").concat(size);
         s = s.concat(", rental price per day is ").concat(String.valueOf(getPricePerDay())).concat(
-                "SEK.");
+                " SEK");
+        s = s.concat(", ID: ").concat(getItemID());
         return s;
     }
 }

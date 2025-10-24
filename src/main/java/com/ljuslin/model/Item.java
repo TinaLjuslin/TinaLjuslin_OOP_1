@@ -1,7 +1,4 @@
-package com.ljuslin.rental;
-
-import com.ljuslin.utils.Material;
-import com.ljuslin.utils.Pattern;
+package com.ljuslin.model;
 
 /**
  * Item (abstract)  Subklasser som ex. Vehicle, Tool, SportGear eller liknande
